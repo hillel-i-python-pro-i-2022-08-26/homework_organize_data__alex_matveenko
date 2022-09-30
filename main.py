@@ -77,7 +77,7 @@ def get_formatted_output(data) -> str:
     """
     return "\n".join(
         [
-            f'В компании "{group}" ' f" Работает {names[0]} человек(а)." f' Это: {", ".join(names[1:].split())}'
+            f'В компании "{group}" ' f" работает {names[0]} человек(а)." f' Это: {", ".join(names[1:].split())}'
             for group, names in data.items()
         ]
     )
