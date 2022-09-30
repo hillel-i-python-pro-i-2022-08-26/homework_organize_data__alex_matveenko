@@ -54,7 +54,7 @@ class DataProvider:
         return self._generate_humans(groups=_groups, amount_of_humans=amount_of_humans)
 
 
-def organize_data(humans: T_HUMANS):
+def organize_data(humans: T_HUMANS) -> dict:
     """
     Organize data in way, useful for further processing.
     At this stage not allowed to make output string.
@@ -71,7 +71,7 @@ def organize_data(humans: T_HUMANS):
     return counter
 
 
-def get_formatted_output(data) -> str:
+def get_formatted_output(data: dict) -> str:
     """
     Get output string. That can be used to print in console.
     """
