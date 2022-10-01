@@ -1,0 +1,7 @@
+# Ignore all
+**
+
+# Exclude
+!Makefile
+!main.py
+!requirements.txt
