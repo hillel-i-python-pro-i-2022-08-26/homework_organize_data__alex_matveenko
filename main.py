@@ -1,5 +1,5 @@
 import random
-from collections import Counter
+from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import TypeAlias, TypedDict
 
@@ -54,21 +54,16 @@ class DataProvider:
         return self._generate_humans(groups=_groups, amount_of_humans=amount_of_humans)
 
 
-def organize_data(humans: T_HUMANS) -> dict:
+def organize_data(humans: T_HUMANS) -> dict[str, list]:
     """
     Organize data in way, useful for further processing.
     At this stage not allowed to make output string.
     """
-    names_and_group: dict[str, str] = {}
+    names_and_group: dict[str, list] = defaultdict(list)
     for i in humans:
-        names_and_group.setdefault(i["name"], i["group"])
+        names_and_group[i["group"]].append(i["name"])
 
-    counter = dict(Counter(names_and_group.values()))
-
-    for key, value in names_and_group.items():
-        if value in counter:
-            counter[value] = f"{str(counter[value])} {str(key)}"
-    return counter
+    return names_and_group
 
 
 def get_formatted_output(data: dict) -> str:
@@ -77,7 +72,7 @@ def get_formatted_output(data: dict) -> str:
     """
     return "\n".join(
         [
-            f'В компании "{group}" ' f" работает {names[0]} человек(а)." f' Это: {", ".join(names[1:].split())}'
+            f'В компании "{group}" работают: {", ".join(names)}. ' f"Всего: {len(names)} человек(а) "
             for group, names in data.items()
         ]
     )
